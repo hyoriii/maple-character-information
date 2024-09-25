@@ -22,7 +22,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://ryuhyori.github.io/maple/",
+  "homepage": "https://GitHubhyoriii.github.io/maple-character-information/",
   "eslintConfig": {
     "extends": [
       "react-app",

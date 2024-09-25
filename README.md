@@ -1,1 +1,1 @@
-# maple-character-information
+# 메이플 캐릭터 정보 검색

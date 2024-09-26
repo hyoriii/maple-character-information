@@ -7,7 +7,7 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Main />}/>
+                    <Route path="/maple-character-information" element={<Main />}/>
                 </Routes>
             </BrowserRouter>
         </div>

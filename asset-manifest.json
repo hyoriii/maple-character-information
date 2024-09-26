@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/maple-character-information/static/css/main.0b7ca5ab.css",
-    "main.js": "/maple-character-information/static/js/main.bda2ec29.js",
+    "main.js": "/maple-character-information/static/js/main.a35d9c98.js",
     "static/js/453.2a82e7ac.chunk.js": "/maple-character-information/static/js/453.2a82e7ac.chunk.js",
     "index.html": "/maple-character-information/index.html",
     "main.0b7ca5ab.css.map": "/maple-character-information/static/css/main.0b7ca5ab.css.map",
-    "main.bda2ec29.js.map": "/maple-character-information/static/js/main.bda2ec29.js.map",
+    "main.a35d9c98.js.map": "/maple-character-information/static/js/main.a35d9c98.js.map",
     "453.2a82e7ac.chunk.js.map": "/maple-character-information/static/js/453.2a82e7ac.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0b7ca5ab.css",
-    "static/js/main.bda2ec29.js"
+    "static/js/main.a35d9c98.js"
   ]
 }

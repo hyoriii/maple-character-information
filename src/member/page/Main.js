@@ -10,6 +10,7 @@ function Main() {
     const encodedCharacterName = encodeURIComponent(characterName);
     const [characterData, setCharacterData] = useState([]);
     const [statData, setStatData] = useState([]);
+    const [error, setError] = useState(null);
     const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
     const handleInputChange = (event) => {
         const newValue = event.target.value;
@@ -25,10 +26,18 @@ function Main() {
                 }
             });
             const data = await response.json();
-            setCharacterOcid(data.ocid);
-            return data.ocid;
+            if (data.ocid) {
+                setCharacterOcid(data.ocid);
+                setError(null);
+                return data.ocid;
+            } else {
+                setError("캐릭터 정보를 찾을 수 없습니다.");
+                setCharacterOcid("");
+                return null;
+            }
         } catch (error) {
             console.log("error", error);
+            setError("캐릭터 정보를 찾을 수 없습니다.");
             return null;
         }
     };
@@ -79,57 +88,61 @@ function Main() {
     };
 
     return (
-        <div className="main">
-            <div className="main_box">
-                <h2>메이플스토리 캐릭터 검색</h2>
-                <div className="content_box">
-                    <div className="left_box">
-                        <div className="search_box">
-                            <input
-                                className="character_name_input"
-                                type="text"
-                                placeholder="캐릭터 이름을 입력하세요."
-                                value={characterName}
-                                onChange={handleInputChange}
-                                onKeyPress={handleKeyPress}
-                            />
-                            <button onClick={handleSearch} className="search_button">검색</button>
-                        </div>
-                        {characterData && Object.keys(characterData).length > 0 ? (
-                        <div className="character_data_box">
-                                <>
-                                    <img className="character_image" src={characterData.character_image} alt="캐릭터 이미지"/>
-                                    <div className="character_info_text_box">
-                                        <div className="character_name_text_box">
-                                            <span className="character_name_text">{characterData.character_name}</span>
-                                            <span className="character_gender_icon">{characterData.character_gender === "여" ? <IoFemale className="female_icon"/> : <IoMale className="male_icon"/>}</span>
+        <>
+            <div className="header_text">본 사이트는 비상업적 목적으로 제작된 포트폴리오 사이트입니다.</div>
+            <div className="main">
+                <div className="main_box">
+                    <h2>메이플스토리 캐릭터 검색</h2>
+                    <div className="content_box">
+                        <div className="left_box">
+                            <div className="search_box">
+                                <input
+                                    className="character_name_input"
+                                    type="text"
+                                    placeholder="캐릭터 이름을 입력하세요."
+                                    value={characterName}
+                                    onChange={handleInputChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                                <button onClick={handleSearch} className="search_button">검색</button>
+                            </div>
+                            {error && <div className="error_message">{error}</div>}
+                            {characterData && Object.keys(characterData).length > 0 ? (
+                                <div className="character_data_box">
+                                    <>
+                                        <img className="character_image" src={characterData.character_image} alt="캐릭터 이미지"/>
+                                        <div className="character_info_text_box">
+                                            <div className="character_name_text_box">
+                                                <span className="character_name_text">{characterData.character_name}</span>
+                                                <span className="character_gender_icon">{characterData.character_gender === "여" ? <IoFemale className="female_icon"/> : <IoMale className="male_icon"/>}</span>
+                                            </div>
+                                            <div className="character_level_text_box">Lv. {characterData.character_level}</div>
+                                            <div className="character_world_text_box">{characterData.world_name}</div>
+                                            <div className="character_class_text_box">{characterData.character_class}</div>
+                                            <div className="character_guild_text_box">{characterData.character_guild_name}</div>
                                         </div>
-                                        <div className="character_level_text_box">Lv. {characterData.character_level}</div>
-                                        <div className="character_world_text_box">{characterData.world_name}</div>
-                                        <div className="character_class_text_box">{characterData.character_class}</div>
-                                        <div className="character_guild_text_box">{characterData.character_guild_name}</div>
-                                    </div>
-                                </>
+                                    </>
+                                </div>
+                            ) : (
+                                <div></div>
+                            )}
+                            {characterOcid ? (
+                                <Rank ocid={characterOcid} world_name={characterData.world_name} api_key={api_key} yesterday={yesterday} characterData={characterData}/>
+                            ) : (
+                                <div></div>
+                            )}
                         </div>
-                        ) : (
-                            <div></div>
-                        )}
                         {characterOcid ? (
-                            <Rank ocid={characterOcid} world_name={characterData.world_name} api_key={api_key} yesterday={yesterday} characterData={characterData}/>
+                            <div className="right_box">
+                                <Item ocid={characterOcid} api_key={api_key} yesterday={yesterday}/>
+                            </div>
                         ) : (
                             <div></div>
                         )}
                     </div>
-                    {characterOcid ? (
-                        <div className="right_box">
-                            <Item ocid={characterOcid} api_key={api_key} yesterday={yesterday}/>
-                        </div>
-                    ) : (
-                        <div></div>
-                    )}
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

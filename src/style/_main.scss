@@ -14,8 +14,18 @@
 body {
   font-family: 'MaplestoryOTFLight' !important;
   font-weight: 300 !important;
+  margin: 0;
 }
 
+.header_text {
+  background-color: #bbbbbb;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  padding: 5px 0;
+  font-family: NanumBarunGothic;
+
+}
 .main {
   display: flex;
   flex-flow: column nowrap;
